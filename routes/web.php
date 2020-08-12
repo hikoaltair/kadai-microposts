@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',  'MicropostsController@index');
 
 //ユーザ登録についてのルート
 Route::get('signup','Auth\RegisterController@showRegistrationForm')->name('signup.get');
@@ -28,4 +26,8 @@ Route::get('logout','Auth\LoginController@logout')->name('logout.get');
 //ログインしているユーザに対してのみ(ユーザ一覧と詳細のルート)
 Route::group(['middleware' =>['auth']],function(){
     Route::resource('users','UsersController',['only' => ['index','show']]);
-    });
+    
+    Route::resource('microposts','MicropostsController',['only' =>['store','destroy']]);
+    
+});
+    
